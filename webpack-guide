@@ -1,1 +1,13 @@
+# To start webpack, you can create your project directory/folder
+# Using npm, you can run npm init -y to create your package.json file
+# This is so your project will have a node package manager file that will contain your dependencies
+# Run npm install --save-dev webpack webpack-cli inside the project directory root
 
+project/
+├── node_modules/       (Created automatically by npm)
+├── src/                (Create manually)
+│   └── index.js        (Create manually - your main JavaScript file)
+├── template.html       (Create manually - your HTML template)
+├── webpack.config.js   (Create manually - your config file)
+├── package.json        (Created by npm init)
+└── package-lock.json   (Created automatically by npm)
