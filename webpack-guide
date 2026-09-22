@@ -1,13 +1,84 @@
-# To start webpack, you can create your project directory/folder
-# Using npm, you can run npm init -y --init-type=module to create your package.json file
-# This is so your project will have a node package manager file that will contain your dependencies
-# Run npm install --save-dev webpack webpack-cli inside the project directory root
+# Create your project directory/folder
+# RUN npm init -y --init-type=module to create your package.json file and use ESM - package.json file is created!
+# RUN npm install --save-dev webpack webpack-cli inside the project directory root - installs the crucial dependencies - a package-lock.json is created!
+# Create src folder - your development folder (source for your html, js, css, assets, etc.
+# Inside src, create index.js as the entry point - this is where you import your other js modules
+# Inside src, create html file inside src - can be named template.html or index.html
+# Back in the project root, create webpack.config.js - the webpack configuration module
+# As per ODIN, add these basic confing: 
+import path from "node:path";
 
-project/
-├── node_modules/       (Created automatically by npm)
-├── src/                (Create manually)
-│   └── index.js        (Create manually - your main JavaScript file)
-│   └── template.html       (Create manually - your HTML template) - Can also be named anything or index.html
-├── webpack.config.js   (Create manually - your config file)
-├── package.json        (Created by npm init)
-└── package-lock.json   (Created automatically by npm)
+export default {
+  mode: "development",
+  entry: "./src/index.js",
+  output: {
+    filename: "main.js",
+    path: path.resolve(import.meta.dirname, "dist"),
+    clean: true,
+  },
+};
+
+# RUN npx webpack to build the current webpack configuration - finds the entry and oupts main.js inside a "dist" folder
+# npx webpack is your build command (save changes)
+# RUN npm install --save-dev html-webpack-plugin - so it can handle building html (Webpack builds JS by default automatically)
+# Since we install a new plugin, we add it inside our webpack.config.js configuration file
+# It is added as a  property that refers to an array:
+plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/template.html",
+    }),
+  ],
+
+# By default, html-webpack-plugin creates an html file named index.html inside the dist folder
+# It also creates a script tag with property "defer"
+
+# RUN npm install --save-dev style-loader css-loader - this installs css-loader and style-loader
+# Add this them into the webpack config file as module.rules:
+module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+
+# css-loader and style loaders are not plugins
+# As per Webpack docs and ODIN guide, css-loader should be put into the last array index since webpack starts right to left
+# NOW, you can import your css files like a JS module into your entry point:
+import "./styles.css";
+
+# RUN, npx webpack to rebuild and apply the changes - style.loader only puts your CSS inside a style tag, not a linkn tag
+# You need to use a plugin called MiniCssExtractPlugin if you want the build to have link tag instead
+# css-loader can handle images, but you need to install html-loader to build those images
+# RUN npm install --save-dev html-loader
+# Inside modules.rules, add:
+{
+  test: /\.html$/i,
+  use: ["html-loader"],
+}
+
+# Add below if you want to manipulate the image in your JS modules using import
+{
+  test: /\.(png|svg|jpg|jpeg|gif)$/i,
+  type: "asset/resource",
+}
+Example: 
+// src/index.js
+import odinImage from "./odin.png";
+
+const image = document.createElement("img");
+image.src = odinImage;
+
+document.body.appendChild(image);
+
+# RUN npm install --save-dev webpack-dev-server - hot module, like live server.
+# Add these oject properties into the webpack.config.js export object:
+devtool: "eval-source-map",
+  devServer: {
+    watchFiles: ["./src/template.html"],
+  },
+# Order doesn't matter
+
+# RUN npx webpack serve to enable dev-server
+# PRESS Ctrl + C to close dev-server
