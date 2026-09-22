@@ -1,5 +1,5 @@
 # To start webpack, you can create your project directory/folder
-# Using npm, you can run npm init -y to create your package.json file
+# Using npm, you can run npm init -y --init-type=module to create your package.json file
 # This is so your project will have a node package manager file that will contain your dependencies
 # Run npm install --save-dev webpack webpack-cli inside the project directory root
 
