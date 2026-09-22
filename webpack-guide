@@ -7,7 +7,7 @@ project/
 ├── node_modules/       (Created automatically by npm)
 ├── src/                (Create manually)
 │   └── index.js        (Create manually - your main JavaScript file)
-├── template.html       (Create manually - your HTML template)
+├── template.html       (Create manually - your HTML template) - Can also be named anything or index.html
 ├── webpack.config.js   (Create manually - your config file)
 ├── package.json        (Created by npm init)
 └── package-lock.json   (Created automatically by npm)
