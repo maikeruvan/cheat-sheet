@@ -58,6 +58,8 @@
 * `git pull origin main --no-rebase`
   * **The Conflict Pull.** Forces Git to execute a traditional merge when downloading changes from GitHub, letting you see and resolve conflicts directly inside VS Code if the cloud and local files don't match.
 
+* `git pull --rebase origin main` -> If you have updated the GitHub repo that no longer match the local git changes
+
 ---
 
 ## 🚨 Oops, I Made a Mistake! (The Safety Nets)
